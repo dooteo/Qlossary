@@ -80,13 +80,9 @@ void MainWindow::fill_projects_widgets() {
 
     projs = dbconn.getAllProjects4List();
 
-    qDebug() << "Get all projects done";
-
     projaux.clear();
     ui->lst_projActives->clear();
-    qDebug() << "intermendiate0";
     ui->cmb_newtermprojects->clear();
-    qDebug() << "intermendiate1";
 
     /*
      * Note: a combobox->clear() method emits on_subject_comboBox_currentIndexChanged()" signal
@@ -94,14 +90,14 @@ void MainWindow::fill_projects_widgets() {
      * */
     ui->cmb_mainfrm_projectslst->clear();
 
-qDebug() << "intermendiate2";
+
     rows = projs.count();
-qDebug() << "intermendiate3";
     if (rows > 0) {
         ui->tab_projects->setTabEnabled(0, true);
     } else {
         ui->tab_projects->setTabEnabled(0, false);
     }
+
     /* projects list is like:
      * [0] == id, [1] = proj name, [2] = original lang name, [3] = orig isocode
      *                             [4] = target lang name [5] = target isocode
@@ -120,7 +116,6 @@ qDebug() << "intermendiate3";
      *
      */
 
-    qDebug() << "Lets fill widngets";
     for (i = 0; i < rows; i = i + 6) {
 
         projaux.append(projs.at(i));
@@ -220,7 +215,12 @@ void MainWindow::fill_mainproject_term_lst(QString projID) {
     ui->lst_terms->clear();
     ui->txtdt_term_desc->clear();
 
-    terms = dbconn.get_terms_by_proj(projID, 20, 0);
+    /*
+     * Note: projID, limit, offset
+     *     If limit = 0, no limit
+     *
+     * */
+    terms = dbconn.get_terms_by_proj(projID, 0, 0);
     rows = terms.count();
 
     /* term row is as:
@@ -242,8 +242,6 @@ void MainWindow::fill_mainproject_term_lst(QString projID) {
         termItem.projName = terms.at(i + 6);
 
         termsList.append(termItem);
-
-        qDebug() << terms.at(i + 1);
         ui->lst_terms->addItem(terms.at(i + 1));
     }
 }
@@ -286,8 +284,6 @@ void MainWindow::fill_mainproject_searchterm(QString projID, QString term) {
         termItem.projName = terms.at(i + 6);
 
         termsList.append(termItem);
-
-        qDebug() << terms.at(i + 1);
         ui->lst_terms->addItem(terms.at(i + 1));
 
     }

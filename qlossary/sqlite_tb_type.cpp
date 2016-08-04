@@ -16,8 +16,6 @@ QStringList Sqlite::getAllTypes() {
     QStringList resultSet;
     QSqlQuery sqlquery(dbconn);
 
-    qDebug() << "get TYpes!";
-
     sqlquery.prepare("SELECT id, name, shortname, description FROM type ORDER BY name ASC;");
 
     if (! sqlquery.exec() ){

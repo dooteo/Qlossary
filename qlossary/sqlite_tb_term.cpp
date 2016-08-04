@@ -34,8 +34,6 @@ unsigned int Sqlite::ins_in_term(QString projID, QString typeID,
         return (1);
     }
 
-    qDebug() << "Insert row into term: ok.";
-
     return (status);
 }
 
@@ -124,12 +122,19 @@ unsigned int Sqlite::tb_term_recover_from_trash(QString projID){
 QStringList Sqlite::get_terms_by_proj (QString projID, unsigned int myLimit, unsigned int myOffset) {
     QSqlQuery sqlquery(dbconn);
     QStringList resultSet;
+    QString auxquery;
 
     /*
      * Note: this time, we'll use :placeholders instead of ?
      * to populate prepared statements
      *
      * */
+
+    if (myLimit > 0) {
+        auxquery = " LIMIT ? OFFSET ? ";
+    } else {
+        auxquery = "";
+    }
 
     if ( projID != "" ) {
         sqlquery.prepare("SELECT t1.id, t1.origterm, t1.targterm, t1.context, "\
@@ -138,24 +143,33 @@ QStringList Sqlite::get_terms_by_proj (QString projID, unsigned int myLimit, uns
                      " WHERE (t1.projectID = :whichproj) AND "\
                      " (t1.projectID = t3.id) AND (t1.typeID = t2.id) " \
                      " ORDER BY t1.origterm ASC "\
-                     " LIMIT ? OFFSET ? ");
+                     + auxquery);
         sqlquery.bindValue(0, projID.toUInt());
-        sqlquery.bindValue(1, myLimit);
-        sqlquery.bindValue(2, myOffset);
+        if (myLimit > 0) {
+            sqlquery.bindValue(1, myLimit);
+            sqlquery.bindValue(2, myOffset);
+        }
+
     } else {
         sqlquery.prepare("SELECT t1.id, t1.origterm, t1.targterm, t1.context, "\
                          " t2.name AS type, t2.shortname, t3.name AS project"\
                          " FROM term AS t1, type AS t2, project AS t3 "\
                          " WHERE (t1.typeID = t2.id) AND (t1.projectID = t3.id) " \
                          " ORDER BY t1.origterm ASC "\
-                         " LIMIT ? OFFSET ? ");
-        sqlquery.bindValue(0, myLimit);
-        sqlquery.bindValue(1, myOffset);
+                         + auxquery);
+        if (myLimit > 0) {
+            sqlquery.bindValue(0, myLimit);
+            sqlquery.bindValue(1, myOffset);
+        }
     }
+
 
     sqlquery.exec();
 
-    qDebug() << sqlquery.lastQuery();
+    /*
+     * Note: use 'lastQuery()' method to check SQL query.
+     *  qDebug() << sqlquery.lastQuery();
+     * */
     if (! sqlquery.exec() ){
         qDebug() << sqlquery.lastError();
         return (resultSet);

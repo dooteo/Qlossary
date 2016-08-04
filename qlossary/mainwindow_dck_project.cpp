@@ -60,13 +60,12 @@ void MainWindow::on_btn_projRemove_clicked() {
     row = ui->lst_projActives->currentRow();
     project = ui->lst_projActives->currentItem()->text();
 
-    qDebug() << "Project Active to Trash";
+    qDebug() << "Project Active to Trash: " << project;
 
     dbconn.tb_project_2_trash(projaux.at(row));
 
-    qDebug() << "fill projects widget";
+
     this->fill_projects_widgets();
-    qDebug() << "fill Trash projects widget";
     this->fill_projTrash_widgets();
 
     ui->statusBar->showMessage("Project to trash: "+ project, 5000);

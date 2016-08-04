@@ -47,7 +47,6 @@ void Sqlite::open(QString dbname, QString abspath) {
     } else {
         qDebug() << "Could not open DB\n";
     }
-    qDebug() << dbconn.connectionNames();
 
     dbtrash= QSqlDatabase::addDatabase("QSQLITE",DB_CONNNAME_TRASH);
     dbtrash.setDatabaseName(abspath + QDir::separator() + dbname + DB_TRASH_EXTENSION);
@@ -56,7 +55,12 @@ void Sqlite::open(QString dbname, QString abspath) {
     } else {
         qDebug() << "Could not open DB\n";
     }
-    qDebug() << dbtrash.connectionNames();
+    /*
+     * Note: use 'connectionNames()' method to get databases' names
+     *  qDebug() << dbtrash.connectionNames();
+     * */
+
+
 
 
     /*
@@ -84,11 +88,8 @@ void Sqlite::activate_foreign_keys() {
     QSqlQuery sqlquery("", dbconn.database(DB_CONNNAME));
     QSqlQuery sqltrash("", dbtrash.database(DB_CONNNAME_TRASH));
 
-   // QSqlQuery sqltrash(dbtrash);
+
     // DB_ACTIVATE_FOREIGNKEYS is a #define at sqlite.h file
-
-    qDebug() << "TO activate glossary foreign keys";
-
     sqlquery.prepare(DB_ACTIVATE_FOREIGNKEYS);
     if (! sqlquery.exec() ){
         qDebug() << sqlquery.lastError();
@@ -96,7 +97,7 @@ void Sqlite::activate_foreign_keys() {
         qDebug() << "Glossary Foreign keys activated...";
     }
 
-    qDebug() << "TO activate TRASH foreign keys";
+
     sqltrash.prepare(DB_ACTIVATE_FOREIGNKEYS);
     if (! sqltrash.exec() ){
         qDebug() << sqltrash.lastError();
@@ -114,9 +115,10 @@ unsigned int Sqlite::create_tables() {
 
     QStringList tables = dbconn.tables();
      if (dbconn.tables().contains("project")) {
-         qDebug() << "DB file has _project_ table.\n";
+         qDebug() << "DB file has _project_ table.";
          return (TB_EXISTS);
      }
+
     // CREATE_TB_LANGUAGE is a #define at sqlite.h file
     sqlquery.prepare(CREATE_TB_LANGUAGE);
     if (! sqlquery.exec() ){
@@ -148,6 +150,11 @@ unsigned int Sqlite::create_tables() {
     qDebug() << "Table _term_ created!";
 
     // ---- ---- Populate some tables ---- ----
+
+    /*
+     * Note: this time, we're going to use execBatch() method to
+     *   run multiple INSERTs at once
+     * */
 
     sqlquery.prepare("INSERT INTO type (name, shortname, description) VALUES (?, ?, ?);");
     QVariantList names;
