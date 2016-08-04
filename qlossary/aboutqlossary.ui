@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutQlossary</class>
+ <widget class="QDialog" name="AboutQlossary">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>442</width>
+    <height>341</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>442</width>
+    <height>341</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>442</width>
+    <height>341</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>About Qlossary</string>
+  </property>
+  <widget class="QPushButton" name="btn_close_about_dlg">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>300</y>
+     <width>92</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>20</y>
+     <width>271</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="lbl_mnHelp_About">
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Qlossary v0.1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="plainText">
+       <string> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia pharetra pulvinar. Curabitur auctor nisl et odio fermentum mollis. In a massa non neque aliquam hendrerit sit amet vitae ex. Fusce commodo ligula ac iaculis varius. Phasellus tristique, nulla vitae ornare laoreet, sapien eros volutpat justo, a blandit magna enim ut nunc. Maecenas molestie mauris nisi. Mauris ac rutrum ligula, id viverra nisi. Aliquam ac rutrum lacus. Sed blandit ante neque, quis maximus enim porttitor sit amet.
+
+Integer quis eros feugiat, convallis diam eget, tincidunt enim. Mauris massa nisi, tristique et vestibulum quis, ultrices vel turpis. Nunc varius tellus mattis commodo vulputate. Ut elementum orci non efficitur porta. Fusce et ipsum faucibus ligula sodales efficitur. Sed risus sem, accumsan ut luctus id, euismod porta purus. Integer nec elit sagittis, vehicula augue id, vulputate ipsum. Sed suscipit eros sit amet sem venenatis tincidunt. Mauris a ante mattis, placerat enim consequat, volutpat ligula. Pellentesque aliquet risus quis purus luctus, et tempor nulla interdum. Nullam sed pharetra urna, in pellentesque lectus. Morbi id nisi massa. Phasellus a quam sed nibh porta lobortis. Praesent vel nibh vel diam gravida ullamcorper. Donec sed sollicitudin ipsum. </string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="Qlossary_logo">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>131</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>../../../../Irudiak/qlossary_logo.png</pixmap>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
