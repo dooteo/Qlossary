@@ -7,3 +7,5 @@ This is a simple project, intended to play with Qt libraries and to learn differ
 
 ![alt text](screenshots/qlossary_01.png "New term for GNOME glossary")
 
+
+![alt text](screenshots/qlossary_02.png "New project for Enlightenment")
